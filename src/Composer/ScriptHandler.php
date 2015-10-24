@@ -43,6 +43,9 @@ class ScriptHandler
         $filesystem->remove($targetDir);
         $filesystem->mkdir($targetDir, $dirMode);
 
+        // make sure we copy the .htaccess so that .twig files cannot be accessed!
+        $filesystem->copy(__DIR__ . '/../../.htaccess', $webDir . '/.htaccess');
+
         foreach (['css', 'fonts', 'img', 'js'] as $dir) {
             $filesystem->mirror(__DIR__ . '/../../app/view/' . $dir, $targetDir . '/view/' . $dir);
         }
